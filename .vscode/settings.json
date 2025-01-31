@@ -1,0 +1,13 @@
+{
+    "files.associations": {
+        "function.h": "c",
+        "stdio.h": "c",
+        "conio.h": "c",
+        "stdlib.h": "c",
+        "time.h": "c",
+        "stdbool.h": "c",
+        "cstdlib": "c",
+        "show.h": "c",
+        "struct.h": "c"
+    }
+}
