@@ -7,6 +7,8 @@ int main(void)
     int selectMenu = 0, selectOption = 0, currentMenu = 0;
     int areaSize = 0;  // 게임범위 크기
     int areaSizeWidth = SIZE_1_WIDTH, areaSizeHeight = SIZE_1_HEIGHT;   // 기본값
+    const int moveDelay = 200;  // (ms)
+    clock_t lastMoveTime = 0;
 
     unsigned char input;
     POSITION posCurrent = {0, 0};
@@ -122,20 +124,21 @@ int main(void)
 
         if(kbhit()) // 키 입력이 있으면
         {
-            if(_getch() == ESC_KEY)
+            input = _getch();
+            if(input == ESC_KEY)
             {
                 EndGame(areaSizeWidth, areaSizeHeight);
                 currentMenu = MAIN_MENU;
             }
-            else
+            else if(input == 0 || input == 224)
             {
                 input = _getch();
-                if(input == 0 || input == 224)
+                clock_t currentTime = clock();  // 현재 시간
+                if((currentTime - lastMoveTime) > moveDelay)
                 {
-                    input = _getch();
                     if(input == UP_KEY && posCurrent.ypos > 0)
                     {
-                        posCurrent.ypos++;
+                        posCurrent.ypos--;
                     }
                     else if(input == LEFT_KEY && posCurrent.xpos > 0)
                     {
@@ -143,12 +146,18 @@ int main(void)
                     }
                     else if(input == DOWN_KEY && posCurrent.ypos < areaSizeHeight)
                     {
-                        posCurrent.ypos--;
+                        posCurrent.ypos++;
                     }
                     else if(input == RIGHT_KEY && posCurrent.xpos < areaSizeWidth)
                     {
                         posCurrent.xpos++;
                     }
+                    // if (GetAsyncKeyState(VK_UP) & 0x8000 && posCurrent.ypos > 0) posCurrent.ypos--;
+                    // if (GetAsyncKeyState(VK_LEFT) & 0x8000 && posCurrent.xpos > 0) posCurrent.xpos--;
+                    // if (GetAsyncKeyState(VK_DOWN) & 0x8000 && posCurrent.ypos < areaSizeHeight) posCurrent.ypos++;
+                    // if (GetAsyncKeyState(VK_RIGHT) & 0x8000 && posCurrent.xpos < areaSizeWidth) posCurrent.xpos++;
+
+                    lastMoveTime = currentTime;
                 }
             }
         }
