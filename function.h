@@ -48,14 +48,8 @@
 
 #define ICON 'B'
 
-HANDLE hConsole, hBuffer[2];
-int activeBuffer = 0;
-COORD iconPos = {1, 1};
 
 
-int ReturnUpDownKey(unsigned char input, int select);
-void EndGame(int width, int height);
-void hideCursor();
 
 
 #endif

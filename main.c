@@ -105,20 +105,17 @@ int main(void)
         // 게임 start
         if(currentMenu == START_MENU && areaSize == SIZE_1)
         {
-            Show_GameArea(areaSizeWidth, areaSizeHeight);
-            Show_Icon(areaSizeWidth, areaSizeHeight);
+
         }
 
         else if(currentMenu == START_MENU && areaSize == SIZE_2)
         {
-            Show_GameArea(areaSizeWidth, areaSizeHeight);
-            Show_Icon(areaSizeWidth, areaSizeHeight);
+
         }
 
         else if(currentMenu == START_MENU && areaSize == SIZE_3)
         {
-            Show_GameArea(areaSizeWidth, areaSizeHeight);
-            Show_Icon(areaSizeWidth, areaSizeHeight);
+
         }
 
         if(kbhit()) // 키 입력이 있으면
@@ -137,19 +134,19 @@ int main(void)
                 {
                     if(input == UP_KEY)
                     {
-                        moveIcon(0, -1, areaSizeWidth, areaSizeHeight);
+
                     }
                     else if(input == LEFT_KEY)
                     {
-                        moveIcon(-1, 0, areaSizeWidth, areaSizeHeight);
+
                     }
                     else if(input == DOWN_KEY)
                     {
-                        moveIcon(0, 1, areaSizeWidth, areaSizeHeight);
+  
                     }
                     else if(input == RIGHT_KEY)
                     {
-                        moveIcon(1, 0, areaSizeWidth, areaSizeHeight);
+
                     }
                     // if (GetAsyncKeyState(VK_UP) & 0x8000 && posCurrent.ypos > 0) posCurrent.ypos--;
                     // if (GetAsyncKeyState(VK_LEFT) & 0x8000 && posCurrent.xpos > 0) posCurrent.xpos--;
@@ -160,8 +157,7 @@ int main(void)
                 }
             }
         }
-        SetConsoleActiveScreenBuffer(hBuffer[activeBuffer]);  
-        activeBuffer = 1 - activeBuffer;
+
     }
 
     return 0;
