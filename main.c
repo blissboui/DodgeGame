@@ -1,6 +1,9 @@
 #include "function.h"
 #include "show.h"
 #include "struct.h"
+#include <stdio.h>
+
+
 
 int main(void)
 {
@@ -11,7 +14,9 @@ int main(void)
     clock_t lastMoveTime = 0;
 
     unsigned char input;
-    POSITION posCurrent = {0, 0};
+    //POSITION posCurrent = {0, 0};
+
+    initBuffer();
 
     hideCursor();
 
@@ -22,7 +27,7 @@ int main(void)
         {
 
         case MAIN_MENU:
-            system("cls");
+            // system("cls");
             Show_GameMenu(selectMenu);
 
             input = _getch();
@@ -55,7 +60,7 @@ int main(void)
             break;
 
         case OPTION_MENU:   // 게임범위 크기 설정
-            system("cls");
+            // system("cls");
             Show_Option(selectOption);
 
             input = _getch();
@@ -100,26 +105,20 @@ int main(void)
         // 게임 start
         if(currentMenu == START_MENU && areaSize == SIZE_1)
         {
-            system("cls");
-            Show_GameArea(SIZE_1_WIDTH, SIZE_1_HEIGHT);
-            printf("\033[%d;%dH", posCurrent.ypos, posCurrent.xpos);
-            printf("BB");
+            Show_GameArea(areaSizeWidth, areaSizeHeight);
+            Show_Icon(areaSizeWidth, areaSizeHeight);
         }
 
         else if(currentMenu == START_MENU && areaSize == SIZE_2)
         {
-            system("cls");
-            Show_GameArea(SIZE_2_WIDTH, SIZE_2_HEIGHT);
-            printf("\033[%d;%dH", posCurrent.ypos, posCurrent.xpos);
-            printf("BB");
+            Show_GameArea(areaSizeWidth, areaSizeHeight);
+            Show_Icon(areaSizeWidth, areaSizeHeight);
         }
 
         else if(currentMenu == START_MENU && areaSize == SIZE_3)
         {
-            system("cls");
-            Show_GameArea(SIZE_3_WIDTH, SIZE_3_HEIGHT);
-            printf("\033[%d;%dH", posCurrent.ypos, posCurrent.xpos);
-            printf("BB");
+            Show_GameArea(areaSizeWidth, areaSizeHeight);
+            Show_Icon(areaSizeWidth, areaSizeHeight);
         }
 
         if(kbhit()) // 키 입력이 있으면
@@ -136,21 +135,21 @@ int main(void)
                 clock_t currentTime = clock();  // 현재 시간
                 if((currentTime - lastMoveTime) > moveDelay)
                 {
-                    if(input == UP_KEY && posCurrent.ypos > 0)
+                    if(input == UP_KEY)
                     {
-                        posCurrent.ypos--;
+                        moveIcon(0, -1, areaSizeWidth, areaSizeHeight);
                     }
-                    else if(input == LEFT_KEY && posCurrent.xpos > 0)
+                    else if(input == LEFT_KEY)
                     {
-                        posCurrent.xpos--;
+                        moveIcon(-1, 0, areaSizeWidth, areaSizeHeight);
                     }
-                    else if(input == DOWN_KEY && posCurrent.ypos < areaSizeHeight)
+                    else if(input == DOWN_KEY)
                     {
-                        posCurrent.ypos++;
+                        moveIcon(0, 1, areaSizeWidth, areaSizeHeight);
                     }
-                    else if(input == RIGHT_KEY && posCurrent.xpos < areaSizeWidth)
+                    else if(input == RIGHT_KEY)
                     {
-                        posCurrent.xpos++;
+                        moveIcon(1, 0, areaSizeWidth, areaSizeHeight);
                     }
                     // if (GetAsyncKeyState(VK_UP) & 0x8000 && posCurrent.ypos > 0) posCurrent.ypos--;
                     // if (GetAsyncKeyState(VK_LEFT) & 0x8000 && posCurrent.xpos > 0) posCurrent.xpos--;
@@ -161,6 +160,8 @@ int main(void)
                 }
             }
         }
+        SetConsoleActiveScreenBuffer(hBuffer[activeBuffer]);  
+        activeBuffer = 1 - activeBuffer;
     }
 
     return 0;

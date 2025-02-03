@@ -46,6 +46,11 @@
 #define DOWN_KEY 80
 #define RIGHT_KEY 77
 
+#define ICON 'B'
+
+HANDLE hConsole, hBuffer[2];
+int activeBuffer = 0;
+COORD iconPos = {1, 1};
 
 
 int ReturnUpDownKey(unsigned char input, int select);
