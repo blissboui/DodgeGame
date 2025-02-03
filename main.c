@@ -14,7 +14,7 @@ int main(void)
     clock_t lastMoveTime = 0;
 
     unsigned char input;
-    //POSITION posCurrent = {0, 0};
+    POSITION posCurrent = {0, 0};
 
     initBuffer();
 
